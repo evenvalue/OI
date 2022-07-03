@@ -35,21 +35,20 @@ string convert(string guess) {
 int call_press(string s) { return press(convert(std::move(s))); }
 
 string guess_sequence(const int N) {
-  string s = "-";
+  string s;
   if (const int x = call_press("12"); x == 0) {
-    s[0] = (call_press("3") ? '3' : '4');
+    s += (call_press("3") ? '3' : '4');
   } else {
-    s[0] = (call_press("1") ? '1' : '2');
+    s += (call_press("1") ? '1' : '2');
   }
 
   if (N == 1) return convert(s);
 
-  string choices;
-  for (char c = '1'; c <= '4'; c++) {
-    if (c == s[0])
-      continue;
-    choices += c;
-  }
+  const string choices = [](const char first) {
+    string alphas = "1234";
+    alphas.erase(alphas.find_first_of(first), 1);
+    return alphas;
+  }(s[0]);
 
   for (int i = 1; i < N - 1; i++) {
     string guess;
