@@ -5,4 +5,4 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_FLAGS_DEBUG "-DOI ${CMAKE_CXX_FLAGS_DEBUG} -Wshadow -Wformat=2 -Wfloat-equal -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -D_FORTIFY_SOURCE=2 -fno-sanitize-recover=all")
 
 # IOI
-add_executable(IOI18_a IOI/2018/Day-1/combo.cpp)
+add_executable(IOI18_a IOI/2018/P1-Combo/combo.cpp IOI/2018/P1-Combo/grader.cpp)
