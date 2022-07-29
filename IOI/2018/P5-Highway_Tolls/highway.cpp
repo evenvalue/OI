@@ -25,7 +25,7 @@ constexpr int kMod = 1e9 + 7;
 int find_hidden_node(const vector<vector<pair<int, int>>> &g, const int root, const int64 all_a, const vector<int> &template_w) {
   const int n = (int) g.size();
 
-  vector<int> match(n, -1), rmatch(n, -1);
+  vector<int> match(n, -1);
   vector<int> edge(n, -1);
   function<int(int, int, int)> postorder = [&](int x, int p, int v) {
     for (const auto &[y, i] : g[x]) {
@@ -33,19 +33,16 @@ int find_hidden_node(const vector<vector<pair<int, int>>> &g, const int root, co
       v = postorder(y, x, v) + 1;
       edge[y] = i;
     }
-    match[x] = v;
-    rmatch[v] = x;
+    match[v] = x;
     return v;
   };
 
-  postorder(root, -1, 0);
-
-  int lo = 0, hi = match[root];
+  int lo = 0, hi = postorder(root, -1, 0);
   while (lo < hi) {
     vector<int> w = template_w;
     const int mid = (lo + hi) / 2;
     for (int i = lo; i <= mid; i++) {
-      w[edge[rmatch[i]]] = 1;
+      w[edge[match[i]]] = 1;
     }
     if (ask(w) > all_a) {
       hi = mid;
@@ -54,7 +51,7 @@ int find_hidden_node(const vector<vector<pair<int, int>>> &g, const int root, co
     }
   }
 
-  return rmatch[lo];
+  return match[lo];
 }
 
 void find_pair(const int n, const vector<int> U, const vector<int> V, const int a, const int b) {
