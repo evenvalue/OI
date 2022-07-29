@@ -6,3 +6,4 @@ set(CMAKE_CXX_FLAGS_DEBUG "-DOI ${CMAKE_CXX_FLAGS_DEBUG} -Wshadow -Wformat=2 -Wf
 
 # IOI
 add_executable(IOI18_a IOI/2018/P1-Combo/combo.cpp IOI/2018/P1-Combo/grader.cpp)
+add_executable(IOI18_e IOI/2018/P5-Highway_Tolls/highway.cpp IOI/2018/P5-Highway_Tolls/grader.cpp)
