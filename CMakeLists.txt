@@ -11,3 +11,5 @@ add_executable(IOI18_c IOI/2018/P3-Werewolf/files/werewolf.cpp IOI/2018/P3-Werew
 add_executable(IOI18_d IOI/2018/P4-Mechanical_Doll/files/doll.cpp IOI/2018/P4-Mechanical_Doll/files/grader.cpp)
 add_executable(IOI18_e IOI/2018/P5-Highway_Tolls/files/highway.cpp IOI/2018/P5-Highway_Tolls/files/grader.cpp)
 add_executable(IOI18_f IOI/2018/P6-Meetings/files/meetings.cpp IOI/2018/P6-Meetings/files/grader.cpp)
+
+add_executable(IOI19_a IOI/2019/P1-Arranging_Shoes/files/shoes.cpp IOI/2019/P1-Arranging_Shoes/files/grader.cpp)
