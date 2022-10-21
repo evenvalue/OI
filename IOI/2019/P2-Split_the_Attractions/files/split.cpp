@@ -57,8 +57,8 @@ vector<int> find_split(int n, int A, int B, int C, vector<int> P, vector<int> Q)
   vector<int> assign(n, 3);
 
   function<void(int, int, int, int)> dfs2 = [&](const int x, const int p, const int i, const int sz) {
+    if (sz == 0) return;
     assign[x] = i;
-    if (sz == 1) return;
     for (const int y : g[x]) {
       if (y == p) continue;
       dfs2(y, x, i, sz - 1);
