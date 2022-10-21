@@ -69,5 +69,10 @@ vector<int> find_split(int n, int A, int B, int C, vector<int> P, vector<int> Q)
   dfs2(U, V, 1, A);
   dfs2(V, U, 2, B);
 
+  assert(A == B);
+  assert(std::count(assign.begin(), assign.end(), 1) == v[0]);
+  assert(std::count(assign.begin(), assign.end(), 2) == v[1]);
+  assert(std::count(assign.begin(), assign.end(), 3) == v[2]);
+
   return assign;
 }
