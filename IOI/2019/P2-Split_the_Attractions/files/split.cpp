@@ -40,9 +40,12 @@ vector<int> find_split(int n, int A, int B, int C, vector<int> P, vector<int> Q)
       if (y == p) continue;
       ss[x] += dfs(y, x);
     }
-    if (ss[x] >= A and n - ss[x] >= A) {
+    if (ss[x] >= A and n - ss[x] >= B) {
       U = x;
       V = p;
+    } else if (ss[x] >= B and n - ss[x] >= A) {
+      U = p;
+      V = x;
     }
     return ss[x];
   };
@@ -50,10 +53,6 @@ vector<int> find_split(int n, int A, int B, int C, vector<int> P, vector<int> Q)
   dfs(0, -1);
 
   if (U == -1) return reject(n);
-
-  if (ss[U] > n - ss[U]) {
-    swap(U, V);
-  }
 
   vector<int> assign(n, 3);
 
