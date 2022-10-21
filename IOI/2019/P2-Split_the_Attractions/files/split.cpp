@@ -20,9 +20,9 @@ vector<int> reject(const int n) {
 }
 
 vector<int> find_split(int n, int A, int B, int C, vector<int> P, vector<int> Q) {
-  vector<int> v = {A, B, C};
+  vector<pair<int, int>> v = {{A, 1}, {B, 2}, {C, 3}};
   sort(v.begin(), v.end());
-  A = v[0], B = v[1], C = v[2];
+  A = v[0].first, B = v[1].first, C = v[2].first;
 
   const int m = P.size();
 
@@ -66,13 +66,8 @@ vector<int> find_split(int n, int A, int B, int C, vector<int> P, vector<int> Q)
     }
   };
 
-  dfs2(U, V, 1, A);
-  dfs2(V, U, 2, B);
-
-  assert(A == B);
-  assert(std::count(assign.begin(), assign.end(), 1) == v[0]);
-  assert(std::count(assign.begin(), assign.end(), 2) == v[1]);
-  assert(std::count(assign.begin(), assign.end(), 3) == v[2]);
+  dfs2(U, V, v[0].second, A);
+  dfs2(V, U, v[1].second, B);
 
   return assign;
 }
