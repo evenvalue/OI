@@ -14,6 +14,34 @@ constexpr int kInf = 1e9 + 10;
 constexpr int64 kInf64 = 1e15 + 10;
 constexpr int kMod = 1e9 + 7;
 
+bool checker(vector<vector<int>> &g, const vector<int> &ans) {
+  const int n = g.size();
+  if (ans == vector<int>(n)) return true;
+
+  vector<bool> visit(n);
+
+  function<void(int, int)> dfs = [&](const int x, const int i) {
+    visit[x] = true;
+    for (const int y : g[x]) {
+      if (visit[y] or ans[y] != i) continue;
+      dfs(y, i);
+    }
+  };
+
+  int cnt = 0;
+  for (int i = 1; i <= 3; i++) {
+    const int s = distance(ans.begin(), find(ans.begin(), ans.end(), i));
+    dfs(s, i);
+    bool flag = true;
+    for (int x = 0; x < n; x++) {
+      if (ans[x] != i) continue;
+      flag &= (visit[x]);
+    }
+    cnt += flag;
+  }
+  return cnt >= 2;
+}
+
 vector<int> sort_ABC(int &A, int &B, int &C) {
   vector<pair<int, int>> v = {{A, 1}, {B, 2}, {C, 3}};
   sort(v.begin(), v.end());
@@ -60,7 +88,7 @@ vector<int> find_split(int n, int A, int B, int C, vector<int> P, vector<int> Q)
   dfs(0, -1);
 
   auto valid = [&](const int p1, const int p2) -> bool {
-    return max(p1, p2) >= B and min(p1, p2) >= A;
+    return min(p1, p2) >= A;
   };
 
   vector<int> ans(n);
@@ -100,36 +128,42 @@ vector<int> find_split(int n, int A, int B, int C, vector<int> P, vector<int> Q)
         }
       }
     }
-    fill(ans.begin(), ans.end(), mapping[2]);
-    mark(x, mapping[0], A, p1);
-    mark(0, mapping[1], B, p2);
-  };
 
-  bool found_ans = false;
+    fill(ans.begin(), ans.end(), mapping[2]);
+
+    assert(valid(std::count(p1.begin(), p1.end(), true), std::count(p2.begin(), p2.end(), true)));
+
+    if (p1 <= p2) {
+      mark(x, mapping[0], A, p1);
+      mark(0, mapping[1], B, p2);
+    } else {
+      mark(0, mapping[0], A, p1);
+      mark(x, mapping[1], B, p2);
+    }
+  };
 
   function<bool(int)> dfs2 = [&](const int x) {
     if (ss[x] < A) return false;
-    int p1 = ss[x], p2 = n - ss[x];
-    bool can_be_valid = true;
     for (const int y : t[x]) {
-      if (dfs2(y)) can_be_valid = false;
-      if (found_ans) return true;
+      if (dfs2(y)) return true;
     }
-    if (not can_be_valid) return true;
+    int p1 = ss[x], p2 = n - ss[x];
     for (const int y : t[x]) {
       if (back[y] < depth[x] and p1 - ss[y] >= A) {
-        p2 += ss[y];
         p1 -= ss[y];
+        p2 += ss[y];
       }
     }
     if (valid(p1, p2)) {
       find_ans(x);
-      found_ans = true;
+      return true;
     }
-    return true;
+    return false;
   };
 
   dfs2(0);
+
+  assert(checker(g, ans));
 
   return ans;
 }
