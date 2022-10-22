@@ -35,26 +35,101 @@ vector<int> find_split(int n, int A, int B, int C, vector<int> P, vector<int> Q)
     g[y].push_back(x);
   }
 
-  int start = 0;
-  for (int x = 0; x < n; x++) {
-    if (g[x].size() == 1) start = x;
-  }
+  vector<vector<int>> t(n);
+  vector<int> depth(n);
+  vector<int> back(n);
+  vector<int> ss(n, 1);
+  vector<bool> visit(n);
 
-  vector<int> ans(n, mapping[2]);
-  int assign = mapping[0];
-
-  function<pair<int, int>(int, int, int)> dfs = [&](const int x, const int p, const int sz) {
-    if (sz == 0) return make_pair(x, p);
-    ans[x] = assign;
+  function<int(int, int)> dfs = [&](const int x, const int p) {
+    visit[x] = true;
     for (const int y : g[x]) {
       if (y == p) continue;
-      return dfs(y, x, sz - 1);
+      if (visit[y]) {
+        back[x] = min(back[x], depth[y]);
+        continue;
+      }
+      t[x].push_back(y);
+      depth[y] = back[y] = depth[x] + 1;
+      ss[x] += dfs(y, x);
+      back[x] = min(back[x], back[y]);
     }
-    assert(false);
+    return ss[x];
   };
 
-  const auto &[start2, p] = dfs(start, -1, A);
-  assign = mapping[1];
-  dfs(start2, p, B);
+  dfs(0, -1);
+
+  auto valid = [&](const int p1, const int p2) -> bool {
+    return max(p1, p2) >= B and min(p1, p2) >= A;
+  };
+
+  vector<int> ans(n);
+  function<void(int, int, int &, vector<bool> &)> mark = [&](const int x, const int i, int &occ, vector<bool> &to_mark) {
+    if (occ == 0) return;
+    ans[x] = i;
+    occ--;
+    to_mark[x] = false;
+    for (const int y : g[x]) {
+      if (not to_mark[y]) continue;
+      mark(y, i, occ, to_mark);
+    }
+  };
+
+  function<void(int, vector<int> &)> get_set = [&](const int x, vector<int> &s) {
+    s.push_back(x);
+    for (const int y : t[x]) {
+      get_set(y, s);
+    }
+  };
+
+  auto find_ans = [&](const int x) {
+    vector<bool> p1(n), p2(n, true);
+    int sz = ss[x];
+    p1[x] = true;
+    p2[x] = false;
+    for (const int y : t[x]) {
+      vector<int> s;
+      get_set(y, s);
+      bool in_p2 = back[y] < depth[x] and sz - ss[y] >= A;
+      if (in_p2) {
+        sz -= ss[y];
+      } else {
+        for (const int u : s) {
+          p1[u] = true;
+          p2[u] = false;
+        }
+      }
+    }
+    fill(ans.begin(), ans.end(), mapping[2]);
+    mark(x, mapping[0], A, p1);
+    mark(0, mapping[1], B, p2);
+  };
+
+  bool found_ans = false;
+
+  function<bool(int)> dfs2 = [&](const int x) {
+    if (ss[x] < A) return false;
+    int p1 = ss[x], p2 = n - ss[x];
+    bool can_be_valid = true;
+    for (const int y : t[x]) {
+      if (dfs2(y)) can_be_valid = false;
+      if (found_ans) return true;
+    }
+    if (not can_be_valid) return true;
+    for (const int y : t[x]) {
+      if (back[y] < depth[x] and p1 - ss[y] >= A) {
+        p2 += ss[y];
+        p1 -= ss[y];
+      }
+    }
+    if (valid(p1, p2)) {
+      find_ans(x);
+      found_ans = true;
+    }
+    return true;
+  };
+
+  dfs2(0);
+
   return ans;
 }
