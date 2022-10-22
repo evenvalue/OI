@@ -14,15 +14,17 @@ constexpr int kInf = 1e9 + 10;
 constexpr int64 kInf64 = 1e15 + 10;
 constexpr int kMod = 1e9 + 7;
 
-vector<int> reject(const int n) {
-  vector<int> v(n);
-  return v;
-}
-
-vector<int> find_split(int n, int A, int B, int C, vector<int> P, vector<int> Q) {
+vector<int> sort_ABC(int &A, int &B, int &C) {
   vector<pair<int, int>> v = {{A, 1}, {B, 2}, {C, 3}};
   sort(v.begin(), v.end());
   A = v[0].first, B = v[1].first, C = v[2].first;
+
+  vector<int> mapping = {v[0].second, v[1].second, v[2].second};
+  return mapping;
+}
+
+vector<int> find_split(int n, int A, int B, int C, vector<int> P, vector<int> Q) {
+  vector<int> mapping = sort_ABC(A, B, C);
 
   const int m = P.size();
 
@@ -33,41 +35,26 @@ vector<int> find_split(int n, int A, int B, int C, vector<int> P, vector<int> Q)
     g[y].push_back(x);
   }
 
-  vector<int> ss(n, 1);
-  int U = -1, V = -1;
-  function<int(int, int)> dfs = [&](const int x, const int p) {
+  int start = 0;
+  for (int x = 0; x < n; x++) {
+    if (g[x].size() == 1) start = x;
+  }
+
+  vector<int> ans(n, mapping[2]);
+  int assign = mapping[0];
+
+  function<pair<int, int>(int, int, int)> dfs = [&](const int x, const int p, const int sz) {
+    if (sz == 0) return make_pair(x, p);
+    ans[x] = assign;
     for (const int y : g[x]) {
       if (y == p) continue;
-      ss[x] += dfs(y, x);
+      return dfs(y, x, sz - 1);
     }
-    if (ss[x] >= A and n - ss[x] >= B) {
-      U = x;
-      V = p;
-    } else if (ss[x] >= B and n - ss[x] >= A) {
-      U = p;
-      V = x;
-    }
-    return ss[x];
+    assert(false);
   };
 
-  dfs(0, -1);
-
-  if (U == -1) return reject(n);
-
-  vector<int> assign(n, 3);
-
-  function<void(int, int, int, int&)> dfs2 = [&](const int x, const int p, const int i, int &sz) {
-    if (sz == 0) return;
-    sz--;
-    assign[x] = i;
-    for (const int y : g[x]) {
-      if (y == p) continue;
-      dfs2(y, x, i, sz);
-    }
-  };
-
-  dfs2(U, V, v[0].second, A);
-  dfs2(V, U, v[1].second, B);
-
-  return assign;
+  const auto &[start2, p] = dfs(start, -1, A);
+  assign = mapping[1];
+  dfs(start2, p, B);
+  return ans;
 }
