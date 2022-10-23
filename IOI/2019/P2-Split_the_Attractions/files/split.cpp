@@ -88,7 +88,7 @@ vector<int> find_split(int n, int A, int B, int C, vector<int> P, vector<int> Q)
   dfs(0, -1);
 
   auto valid = [&](const int p1, const int p2) -> bool {
-    return min(p1, p2) >= A;
+    return max(p1, p2) >= B and min(p1, p2) >= A;
   };
 
   vector<int> ans(n);
