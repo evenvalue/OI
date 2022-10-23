@@ -142,14 +142,19 @@ vector<int> find_split(int n, int A, int B, int C, vector<int> P, vector<int> Q)
     }
   };
 
+  auto check = [&](const int x) {
+    for (const int y : t[x]) {
+      if (ss[y] >= A) return false;
+    }
+    return true;
+  };
+
   function<bool(int)> dfs2 = [&](const int x) {
     if (ss[x] < A) return false;
-    bool condition = true;
     for (const int y : t[x]) {
       if (dfs2(y)) return true;
-      condition &= (ss[y] < A);
     }
-    if (not condition) return false;
+    if (not check(x)) return false;
     int p1 = ss[x], p2 = n - ss[x];
     for (const int y : t[x]) {
       if (back[y] < depth[x] and p1 - ss[y] >= A) {
