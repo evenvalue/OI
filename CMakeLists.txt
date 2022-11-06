@@ -14,3 +14,4 @@ add_executable(IOI18_f IOI/2018/P6-Meetings/files/meetings.cpp IOI/2018/P6-Meeti
 
 add_executable(IOI19_a IOI/2019/P1-Arranging_Shoes/files/shoes.cpp IOI/2019/P1-Arranging_Shoes/files/grader.cpp)
 add_executable(IOI19_b IOI/2019/P2-Split_the_Attractions/files/split.cpp IOI/2019/P2-Split_the_Attractions/files/grader.cpp)
+add_executable(IOI19_e IOI/2019/P5-Vision_Program/files/vision.cpp IOI/2019/P5-Vision_Program/files/grader.cpp)
