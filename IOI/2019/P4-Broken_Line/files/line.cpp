@@ -30,6 +30,10 @@ struct point {
   bool operator<(const point other) const {
     return y < other.y;
   }
+
+  bool operator==(const point &other) const {
+    return (x == other.x) and (y == other.y);
+  }
 };
 
 point intersect(const point p1, const point p2) {
@@ -87,6 +91,8 @@ inline void solution() {
   };
 
   vector<box> anti_clockwise_boxes;
+  vector<point> left_chain;
+  vector<point> right_chain;
   for (int t = kInf, l = -1, d = -1, r = kInf; not check_empty();) {
     const point tl(l, t);
     const point dr(r, d);
@@ -111,6 +117,31 @@ inline void solution() {
     b[1] = *left.begin();
     b[2] = *down.begin();
     b[3] = *right.begin();
+
+    if (b[0] == b[1]) {
+      right_chain.push_back(b[0]);
+      top.erase(top.begin());
+      left.erase(left.begin());
+      continue;
+    }
+    if (b[0] == b[3]) {
+      left_chain.push_back(b[0]);
+      top.erase(top.begin());
+      right.erase(right.begin());
+      continue;
+    }
+    if (b[2] == b[1]) {
+      left_chain.push_back(b[2]);
+      down.erase(down.begin());
+      left.erase(left.begin());
+      continue;
+    }
+    if (b[2] == b[3]) {
+      right_chain.push_back(b[2]);
+      down.erase(down.begin());
+      right.erase(right.begin());
+      continue;
+    }
 
     t = b[0].y;
     l = b[1].x;
@@ -137,8 +168,29 @@ inline void solution() {
 
   const int boxes = anti_clockwise_boxes.size();
 
-  point prev = anti_clockwise_boxes[0][0];
-  vector<point> ans = {intersect(prev, point(0, 0))};
+  left_chain.emplace_back(0, 0);
+  sort(left_chain.begin(), left_chain.end());
+  sort(right_chain.begin(), right_chain.end());
+
+  vector<point> ans = {left_chain[0]};
+  for (int i = 0; i < left_chain.size() - 1; i++) {
+    point p = ((i % 2) ? intersect(left_chain[i], left_chain[i + 1]) : intersect(left_chain[i + 1], left_chain[i]));
+    ans.push_back(p);
+  }
+  ans.push_back(left_chain.back());
+
+  if (not right_chain.empty()) {
+    ans.push_back(intersect(ans.back(), right_chain[0]));
+    ans.push_back(right_chain[0]);
+    for (int i = 0; i < right_chain.size() - 1; i++) {
+      point p = ((i % 2) ? intersect(right_chain[i], right_chain[i + 1]) : intersect(right_chain[i + 1], right_chain[i]));
+      ans.push_back(p);
+    }
+    ans.push_back(right_chain.back());
+  }
+
+  point prev = ans.back();
+  vector<point> spiral = {intersect(prev, point(0, 0))};
   for (int i = 0; i < boxes; i++) {
     auto &ab = anti_clockwise_boxes[i];
     auto &cb = clockwise_boxes[i];
@@ -146,15 +198,18 @@ inline void solution() {
     const point p = intersect(prev, ab[0]);
     auto &b = (ab[0].x <= p.x ? ab : cb);
 
-    ans.push_back(intersect(prev, b[0]));
-    ans.push_back(intersect(b[1], ans.back()));
-    ans.push_back(intersect(ans.back(), b[2]));
-    ans.push_back(intersect(b[3], ans.back()));
+    spiral.push_back(intersect(prev, b[0]));
+    spiral.push_back(intersect(b[1], spiral.back()));
+    spiral.push_back(intersect(spiral.back(), b[2]));
+    spiral.push_back(intersect(b[3], spiral.back()));
     prev = b[3];
   }
 
-  ans.push_back(prev);
+  spiral.push_back(prev);
 
+  ans.insert(ans.end(), spiral.begin(), spiral.end());
+
+  ans.erase(ans.begin());
   cout << ans.size() << '\n';
   for (const point p : ans) {
     cout << p.x << " " << p.y << '\n';
