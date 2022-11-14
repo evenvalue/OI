@@ -209,7 +209,10 @@ inline void solution() {
 
   ans.insert(ans.end(), spiral.begin(), spiral.end());
 
-  ans.erase(ans.begin());
+  while (*ans.begin() == point(0, 0)) {
+    ans.erase(ans.begin());
+  }
+
   cout << ans.size() << '\n';
   for (const point p : ans) {
     cout << p.x << " " << p.y << '\n';
