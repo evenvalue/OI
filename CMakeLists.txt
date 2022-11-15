@@ -17,3 +17,5 @@ add_executable(IOI19_b IOI/2019/P2-Split_the_Attractions/files/split.cpp IOI/201
 add_executable(IOI19_d IOI/2019/P4-Broken_Line/files/line.cpp)
 add_executable(IOI19_e IOI/2019/P5-Vision_Program/files/vision.cpp IOI/2019/P5-Vision_Program/files/grader.cpp)
 add_executable(IOI19_f IOI/2019/P6-Sky_Walking/files/walk.cpp IOI/2019/P6-Sky_Walking/files/grader.cpp)
+
+add_executable(IOI20_b IOI/2020/P2-Connecting_Supertrees/files/supertrees.cpp IOI/2020/P2-Connecting_Supertrees/files/grader.cpp)
