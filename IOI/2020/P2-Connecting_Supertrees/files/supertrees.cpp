@@ -86,18 +86,8 @@ bool connect2(const vector<int> &nodes) {
   return true;
 }
 
-bool connect3(const vector<int> &nodes) {
-  if (nodes.size() < 4) return false;
-  connect2(nodes);
-  connect(nodes[0], nodes[2]);
-  return true;
-}
-
 bool solve(const vector<int> &nodes) {
   const int n = (int) nodes.size();
-
-  bool two = false;
-  bool three = false;
 
   dsu d(n);
   for (int i = 0; i < n; i++) {
@@ -105,15 +95,11 @@ bool solve(const vector<int> &nodes) {
       const int way = ways[nodes[i]][nodes[j]];
       if (way == 1) {
         d.unite(i, j);
-      } else if (way == 2) {
-        two = true;
-      } else {
-        three = true;
+      } else if (way == 3) {
+        return false;
       }
     }
   }
-
-  if (two and three) return false;
 
   const vector<vector<int>> lines = d.components();
   for (auto line : lines) {
@@ -124,26 +110,20 @@ bool solve(const vector<int> &nodes) {
         if (ways[x][y] != 1) return false;
       }
     }
-    for (int &x : line) {
-      x = nodes[x];
+    for (int &i : line) {
+      i = nodes[i];
     }
     connect1(line);
   }
 
-  if (lines.size() == 1) {
-    assert(not two);
-    assert(not three);
-    return true;
-  }
-
-  assert(two xor three);
+  if (lines.size() == 1) return true;
 
   vector<int> cycle;
   for (const auto &line : lines) {
     cycle.push_back(nodes[line[0]]);
   }
 
-  return (two ? connect2(cycle) : connect3(cycle));
+  return connect2(cycle);
 }
 
 int construct(vector<std::vector<int>> p) {
