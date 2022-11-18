@@ -19,3 +19,4 @@ add_executable(IOI19_e IOI/2019/P5-Vision_Program/files/vision.cpp IOI/2019/P5-V
 add_executable(IOI19_f IOI/2019/P6-Sky_Walking/files/walk.cpp IOI/2019/P6-Sky_Walking/files/grader.cpp)
 
 add_executable(IOI20_b IOI/2020/P2-Connecting_Supertrees/files/supertrees.cpp IOI/2020/P2-Connecting_Supertrees/files/grader.cpp)
+add_executable(IOI20_c IOI/2020/P3-Carnival_Tickets/files/tickets.cpp IOI/2020/P3-Carnival_Tickets/files/grader.cpp)
