@@ -1,4 +1,4 @@
-//#include "biscuits.h"
+#include "biscuits.h"
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -11,68 +11,37 @@ using int64 = long long;
 using ld = long double;
 
 constexpr int kInf = 1e9 + 10;
-constexpr int64 kInf64 = 1e15 + 10;
+constexpr int64 kInf64 = 2e18 + 10;
 constexpr int kMod = 1e9 + 7;
-constexpr int kBits = 60;
+constexpr int kBits = 61;
 
-int64 calc(const vector<int64> &biscuits) {
-  int64 ans = 1;
-  for (int i = 0; i < biscuits.size(); i++) {
-    ans += (1LL << i) * biscuits[i];
+void merge_biscuits(const int64 x, vector<int64> &biscuits) {
+  while (biscuits.size() <= kBits) biscuits.push_back(0);
+  for (int i = 0; i < kBits; i++) {
+    const int64 carry = max(0LL, biscuits[i] - x) / 2;
+    biscuits[i] -= 2 * carry;
+    biscuits[i + 1] += carry;
   }
-  return ans;
 }
 
 int64 count_tastiness(int64 x, vector<int64> biscuits) {
-  biscuits.push_back(0);
+  merge_biscuits(x, biscuits);
 
-  assert(x == 1);
-
-  vector<vector<int64>> segments = {{}};
-
-  const int n = (int) biscuits.size();
-  for (int64 i = 0, carry = 0; i < n; i++) {
-    biscuits[i] += carry;
-    carry = (biscuits[i] - 1) / 2;
-    if (biscuits[i] == 0) {
-      segments.emplace_back();
-    } else {
-      segments.back().push_back(biscuits[i] - carry * 2);
-    }
+  vector<int64> s(kBits, biscuits[0]);
+  for (int i = 1; i < kBits; i++) {
+    s[i] = s[i - 1] + (1LL << i) * biscuits[i];
   }
 
-  int64 ans = 1;
-  for (const auto &segment : segments) {
-    ans *= calc(segment);
-  }
+  map<int64, int64> memo;
+  memo[1] = 1;
+  function<int64(int64)> dp = [&](const int64 n)-> int64 {
+    if (n <= 0) return 0;
+    if (memo[n] != 0) return memo[n];
+    const int i = (int)ceil(log2(n) - 1);
+    const int64 c = (1LL << i);
+    memo[n] = dp(c) + dp(min(n, s[i] / x + 1) - c);
+    return memo[n];
+  };
 
-  return ans;
+  return dp(kInf64);
 }
-
-
-int main() {
-  int q;
-  assert(scanf("%d", &q) == 1);
-  vector<int> k(q);
-  vector<long long> x(q);
-  vector<vector<long long>> a(q);
-  vector<long long> results(q);
-  for (int t = 0; t < q; t++) {
-    assert(scanf("%d%lld", &k[t], &x[t]) == 2);
-    a[t] = vector<long long>(k[t]);
-    for (int i = 0; i < k[t]; i++) {
-      assert(scanf("%lld", &a[t][i]) == 1);
-    }
-  }
-  fclose(stdin);
-
-  for (int t = 0; t < q; t++) {
-    results[t] = count_tastiness(x[t], a[t]);
-  }
-  for (int t = 0; t < q; t++) {
-    printf("%lld\n", results[t]);
-  }
-  fclose(stdout);
-  return 0;
-}
-
