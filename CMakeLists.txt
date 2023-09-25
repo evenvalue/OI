@@ -24,3 +24,5 @@ add_executable(IOI20_c IOI/2020/P3-Carnival_Tickets/files/tickets.cpp IOI/2020/P
 add_executable(IOI20_d IOI/2020/P4-Packing_Biscuits/files/biscuits.cpp IOI/2020/P4-Packing_Biscuits/files/grader.cpp)
 add_executable(IOI20_e IOI/2020/P5-Counting_Mushrooms/files/mushrooms.cpp IOI/2020/P5-Counting_Mushrooms/files/grader.cpp)
 add_executable(IOI20_f IOI/2020/P6-Stations/files/stations.cpp IOI/2020/P6-Stations/files/grader.cpp)
+
+add_executable(IOI23_a IOI/2023/P5-Overtaking/files/overtaking.cpp IOI/2023/P5-Overtaking/files/grader.cpp)
