@@ -7,6 +7,7 @@ set(CMAKE_CXX_FLAGS_DEBUG "-DOI ${CMAKE_CXX_FLAGS_DEBUG} -Wshadow -Wformat=2 -Wf
 #CEOI
 add_executable(CEOI21_a CEOI/2021/Day-1/a.cpp)
 add_executable(CEOI21_c CEOI/2021/Day-1/c.cpp)
+add_executable(CEOI21_d CEOI/2021/Day-2/d.cpp)
 
 # IOI
 add_executable(IOI18_a IOI/2018/P1-Combo/files/combo.cpp IOI/2018/P1-Combo/files/grader.cpp)
