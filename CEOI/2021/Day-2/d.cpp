@@ -16,7 +16,7 @@ using min_heap = priority_queue<T, vector<T>, greater<T>>;
 template<typename T>
 using max_heap = priority_queue<T, vector<T>, less<T>>;
 
-namespace Read {
+namespace read {
 int Int() {
   int x;
   cin >> x;
@@ -73,8 +73,8 @@ constexpr int kMod = 1e9 + 7;
 constexpr int kMaxN = 2e5 + 10;
 
 inline void solution() {
-  const int n = Read::Int();
-  vector<int> pile = Read::Vec<int>(n);
+  const int n = read::Int();
+  vector<int> pile = read::Vec<int>(n);
 
   int two = 0;
   set<int> one;
@@ -87,7 +87,7 @@ inline void solution() {
   }
 
   while (true) {
-    const int k = Read::Int() - 1;
+    const int k = read::Int() - 1;
     if (pile[k] == 1) {
       cout << 1 << endl;
       one.erase(k);
@@ -105,7 +105,7 @@ inline void solution() {
     } else {
       cout << *one.begin() + 1 << endl;
       one.erase(one.begin());
-      Read::Int();
+      read::Int();
     }
   }
 }
