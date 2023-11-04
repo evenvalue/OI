@@ -65,7 +65,7 @@ vector<vector<T>> VecVec(const int n, const int m) {
   }
   return v;
 }
-}// namespace Read
+}// namespace read
 
 constexpr int kInf = 1e9 + 10;
 constexpr int64 kInf64 = 1e15 + 10;
@@ -126,12 +126,32 @@ int64 diversities(const vector<int> &fof, const vector<int> &keys) {
   return ans;
 }
 
+inline int64 hilbertOrder(int x, int y, int pow, int rotate) {
+  if (pow == 0) {
+    return 0;
+  }
+  int hpow = 1 << (pow - 1);
+  int seg = (x < hpow) ? ((y < hpow) ? 0 : 3)
+                       : ((y < hpow) ? 1 : 2);
+  seg = (seg + rotate) & 3;
+  const int rotateDelta[4] = {3, 0, 0, 1};
+  int nx = x & (x ^ hpow), ny = y & (y ^ hpow);
+  int nrot = (rotate + rotateDelta[seg]) & 3;
+  int64 subSquareSize = int64(1) << (2 * pow - 2);
+  int64 ans = seg * subSquareSize;
+  int64 add = hilbertOrder(nx, ny, pow - 1, nrot);
+  ans += (seg == 1 || seg == 2) ? add : (subSquareSize - add - 1);
+  return ans;
+}
+
+
 class mo_s {
   struct query {
     int l, r, v, t;
+    int64 hilbert;
     int64 ans;
 
-    query(const int l, const int r, const int v, const int t) : l(l), r(r), v(v), t(t), ans(0) {}
+    query(const int l, const int r, const int v, const int t, const int64 h) : l(l), r(r), v(v), t(t), hilbert(h), ans(0) {}
   };
 
   const int kBlockSize = 550;
@@ -148,22 +168,20 @@ public:
   explicit mo_s(const vector<int> &a) : n(a.size()), a(a) {}
 
   void add_query(const int l, const int r, const int v, const int t) {
-    queries.emplace_back(l, r, v, t);
+    const int64 order = hilbertOrder(l, r, 20, 0);
+    queries.emplace_back(l, r, v, t, order);
   }
 
   vector<int64> solve() {
     sort(queries.begin(), queries.end(), [&](const query &q1, const query &q2) {
-      if (block_of(q1.l) != block_of(q2.l)) {
-        return (q1.l < q2.l);
-      }
-      return (block_of(q1.l) & 1 ? q1.r < q2.r : q1.r > q2.r);
+      return q1.hilbert < q2.hilbert;
     });
 
     const int kDistinct = *max_element(a.begin(), a.end()) + 1;
 
     const int kMaxFreq = 3e5;
     vector<int> freq(kDistinct);
-    vector<int> fof(kMaxFreq + 1); //frequency of frequencies
+    vector<int> fof(kMaxFreq + 1);//frequency of frequencies
     vector<int> options;
 
     fof[0] = kDistinct;
@@ -190,7 +208,8 @@ public:
 
       options.erase(remove_if(options.begin(), options.end(), [&](const int x) {
                       return fof[x] == 0;
-                    }), options.end());
+                    }),
+                    options.end());
       sort(options.begin(), options.end());
       options.erase(unique(options.begin(), options.end()), options.end());
 
