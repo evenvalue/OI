@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.17)
 project(OI)
 
 set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_FLAGS_DEBUG "-Devenvalue ${CMAKE_CXX_FLAGS_DEBUG} -Wall -Wextra -pedantic -std=c++20 -Wformat=2 -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -D_FORTIFY_SOURCE=2 -fsanitize=address -fsanitize=undefined -fno-sanitize-recover -fstack-protector")
+set(CMAKE_CXX_FLAGS_DEBUG "-Devenvalue ${CMAKE_CXX_FLAGS_DEBUG} -Wshadow -Wformat=2 -Wfloat-equal -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -D_FORTIFY_SOURCE=2 -fno-sanitize-recover=all")
 
 #CEOI
 add_executable(CEOI21_a CEOI/2021/Day-1/a.cpp)
