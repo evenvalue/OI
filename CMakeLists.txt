@@ -5,6 +5,8 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_FLAGS_DEBUG "-Devenvalue ${CMAKE_CXX_FLAGS_DEBUG} -Wshadow -Wformat=2 -Wfloat-equal -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -D_FORTIFY_SOURCE=2 -fno-sanitize-recover=all")
 
 #CEOI
+add_executable(CEOI20_a CEOI/2020/Day-1/a.cpp)
+
 add_executable(CEOI21_a CEOI/2021/Day-1/a.cpp)
 add_executable(CEOI21_c CEOI/2021/Day-1/c.cpp)
 add_executable(CEOI21_d CEOI/2021/Day-2/d.cpp)
