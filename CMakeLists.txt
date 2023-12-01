@@ -6,6 +6,7 @@ set(CMAKE_CXX_FLAGS_DEBUG "-Devenvalue ${CMAKE_CXX_FLAGS_DEBUG} -Wshadow -Wforma
 
 #CEOI
 add_executable(CEOI20_a CEOI/2020/Day-1/a.cpp)
+add_executable(CEOI20_d CEOI/2020/Day-2/d.cpp)
 
 add_executable(CEOI21_a CEOI/2021/Day-1/a.cpp)
 add_executable(CEOI21_c CEOI/2021/Day-1/c.cpp)
