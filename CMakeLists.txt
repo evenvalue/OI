@@ -4,7 +4,10 @@ project(OI)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_FLAGS_DEBUG "-Devenvalue ${CMAKE_CXX_FLAGS_DEBUG} -Wshadow -Wformat=2 -Wfloat-equal -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -D_FORTIFY_SOURCE=2 -fno-sanitize-recover=all")
 
-#CEOI
+# BOI
+add_executable(BOI18_b BOI/2018/Day-1/dna.cpp)
+
+# CEOI
 add_executable(CEOI17_a CEOI/2017/Day-1/a.cpp)
 add_executable(CEOI17_b CEOI/2017/Day-1/b.cpp)
 add_executable(CEOI17_c CEOI/2017/Day-1/c.cpp)
