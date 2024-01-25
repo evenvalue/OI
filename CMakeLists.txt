@@ -6,6 +6,7 @@ set(CMAKE_CXX_FLAGS_DEBUG "-Devenvalue ${CMAKE_CXX_FLAGS_DEBUG} -Wshadow -Wforma
 
 # BOI
 add_executable(BOI18_b BOI/2018/Day-1/dna.cpp)
+add_executable(BOI18_c BOI/2018/Day-1/worm.cpp)
 add_executable(BOI18_f BOI/2018/Day-2/paths.cpp)
 
 # CEOI
