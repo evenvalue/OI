@@ -56,3 +56,6 @@ add_executable(IOI20_f IOI/2020/P6-Stations/files/stations.cpp IOI/2020/P6-Stati
 add_executable(IOI23_a IOI/2023/P1-Closing-Time/files/closing.cpp IOI/2023/P1-Closing-Time/files/grader.cpp)
 add_executable(IOI23_b IOI/2023/P2-Longest-Trip/files/longesttrip.cpp IOI/2023/P2-Longest-Trip/files/grader.cpp)
 add_executable(IOI23_e IOI/2023/P5-Overtaking/files/overtaking.cpp IOI/2023/P5-Overtaking/files/grader.cpp)
+
+# JOIFR
+add_executable(JOIFR18_a JOI/Final_Round/2018/stove.cpp)
