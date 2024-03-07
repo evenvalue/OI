@@ -32,6 +32,8 @@ add_executable(IOI11_a IOI/2011/P2-Race/files/race.cpp IOI/2011/P2-Race/files/gr
 add_executable(IOI13_d IOI/2013/P4-Cave/files/cave.cpp IOI/2013/P4-Cave/files/grader.cpp)
 add_executable(IOI13_e IOI/2013/P5-Robots/files/robots.cpp IOI/2013/P5-Robots/files/grader.cpp)
 
+add_executable(IOI14_c IOI/2014/P3-Game/files/game.cpp IOI/2014/P3-Game/files/grader.cpp)
+
 add_executable(IOI16_a IOI/2016/P1-Detecting_Molecules/files/molecules.cpp IOI/2016/P1-Detecting_Molecules/files/grader.cpp)
 
 add_executable(IOI18_a IOI/2018/P1-Combo/files/combo.cpp IOI/2018/P1-Combo/files/grader.cpp)
