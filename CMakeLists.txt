@@ -29,6 +29,7 @@ add_executable(CEOI21_d CEOI/2021/Day-2/d.cpp)
 # IOI
 add_executable(IOI11_a IOI/2011/P2-Race/files/race.cpp IOI/2011/P2-Race/files/grader.cpp)
 
+add_executable(IOI13_d IOI/2013/P4-Cave/files/cave.cpp IOI/2013/P4-Cave/files/grader.cpp)
 add_executable(IOI13_e IOI/2013/P5-Robots/files/robots.cpp IOI/2013/P5-Robots/files/grader.cpp)
 
 add_executable(IOI16_a IOI/2016/P1-Detecting_Molecules/files/molecules.cpp IOI/2016/P1-Detecting_Molecules/files/grader.cpp)
