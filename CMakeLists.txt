@@ -62,3 +62,5 @@ add_executable(IOI23_e IOI/2023/P5-Overtaking/files/overtaking.cpp IOI/2023/P5-O
 add_executable(JOIFR18_a JOI/Final_Round/2018/stove.cpp)
 add_executable(JOIFR18_b JOI/Final_Round/2018/art.cpp)
 add_executable(JOIFR18_d JOI/Final_Round/2018/commuter_pass.cpp)
+
+add_executable(JOIFR19_a JOI/Final_Round/2019/bitaro.cpp)
