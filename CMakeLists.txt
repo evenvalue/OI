@@ -66,3 +66,5 @@ add_executable(JOIFR18_b JOI/Final_Round/2018/art.cpp)
 add_executable(JOIFR18_d JOI/Final_Round/2018/commuter_pass.cpp)
 
 add_executable(JOIFR19_a JOI/Final_Round/2019/bitaro.cpp)
+
+add_executable(JOIFR20_a JOI/Final_Round/2020/just_long_neckties.cpp)
