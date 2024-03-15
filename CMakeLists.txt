@@ -68,3 +68,15 @@ add_executable(JOIFR18_d JOI/Final_Round/2018/commuter_pass.cpp)
 add_executable(JOIFR19_a JOI/Final_Round/2019/bitaro.cpp)
 
 add_executable(JOIFR20_a JOI/Final_Round/2020/just_long_neckties.cpp)
+
+# USACO
+add_executable(0282 USACO/2013/Open/Silver/p1.cpp)
+add_executable(0574 USACO/2015/December/Gold/p2.cpp)
+add_executable(0622 USACO/2016/February/Gold/p2.cpp)
+add_executable(0647 USACO/2016/Open/Gold/p3.cpp)
+add_executable(0815 USACO/2018/February/Gold/p3.cpp)
+add_executable(1254 USACO/2022/December/Silver/p1.cpp)
+add_executable(1255 USACO/2022/December/Silver/p2.cpp)
+add_executable(1256 USACO/2022/December/Silver/p3.cpp)
+add_executable(1259 USACO/2022/December/Gold/p3.cpp)
+add_executable(1283 USACO/2023/January/Gold/p3.cpp)
