@@ -69,6 +69,9 @@ add_executable(JOIFR19_a JOI/Final_Round/2019/bitaro.cpp)
 
 add_executable(JOIFR20_a JOI/Final_Round/2020/just_long_neckties.cpp)
 
+#JOIOC
+add_executable(JOIOC14_f JOI/Open_Contest/2014/P6-Secret/files/secret.cpp JOI/Open_Contest/2014/P6-Secret/files/grader.cpp)
+
 #JOISC
 add_executable(JOISC18_h JOI/Spring_Training_Camp/2018/Day-3/bitaro.cpp)
 
