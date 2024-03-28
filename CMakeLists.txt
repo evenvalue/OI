@@ -27,6 +27,8 @@ add_executable(CEOI21_c CEOI/2021/Day-1/c.cpp)
 add_executable(CEOI21_d CEOI/2021/Day-2/d.cpp)
 
 # IOI
+add_executable(IOI08_a IOI/2008/P1-Type_Printer/printer.cpp)
+
 add_executable(IOI11_a IOI/2011/P2-Race/files/race.cpp IOI/2011/P2-Race/files/grader.cpp)
 
 add_executable(IOI13_d IOI/2013/P4-Cave/files/cave.cpp IOI/2013/P4-Cave/files/grader.cpp)
