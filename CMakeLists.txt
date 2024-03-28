@@ -69,6 +69,9 @@ add_executable(JOIFR19_a JOI/Final_Round/2019/bitaro.cpp)
 
 add_executable(JOIFR20_a JOI/Final_Round/2020/just_long_neckties.cpp)
 
+#JOISC
+add_executable(JOISC19_a JOI/Spring_Training_Camp/2019/examination.cpp)
+
 # USACO
 add_executable(0282 USACO/2013/Open/Silver/p1.cpp)
 add_executable(0574 USACO/2015/December/Gold/p2.cpp)
