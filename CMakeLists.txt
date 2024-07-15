@@ -93,3 +93,9 @@ add_executable(1255 USACO/2022/December/Silver/p2.cpp)
 add_executable(1256 USACO/2022/December/Silver/p3.cpp)
 add_executable(1259 USACO/2022/December/Gold/p3.cpp)
 add_executable(1283 USACO/2023/January/Gold/p3.cpp)
+
+# WEOI
+add_executable(WEOI24_a WEOI/2024/A/grader.cpp WEOI/2024/A/equal.cpp)
+add_executable(WEOI24_b WEOI/2024/B/grader.cpp WEOI/2024/B/mazes.cpp)
+add_executable(WEOI24_c WEOI/2024/C/grader.cpp WEOI/2024/C/multihop.cpp)
+add_executable(WEOI24_d WEOI/2024/D/grader.cpp WEOI/2024/D/trees.cpp)
