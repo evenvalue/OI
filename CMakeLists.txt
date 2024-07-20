@@ -5,6 +5,8 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_FLAGS_DEBUG "-DLOCAL ${CMAKE_CXX_FLAGS_DEBUG} -Wshadow -Wformat=2 -Wfloat-equal -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -D_FORTIFY_SOURCE=2 -fno-sanitize-recover=all")
 
 # BOI
+add_executable(BOI05_e BOI/2005/bus.cpp)
+
 add_executable(BOI17_f BOI/2017/Day-2/plusminus.cpp)
 
 add_executable(BOI18_b BOI/2018/Day-1/dna.cpp)
