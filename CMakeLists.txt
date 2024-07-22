@@ -86,6 +86,8 @@ add_executable(JOISC18_h JOI/Spring_Training_Camp/2018/Day-3/bitaro.cpp)
 add_executable(JOISC19_a JOI/Spring_Training_Camp/2019/Day-1/examination.cpp)
 
 #POI
+add_executable(POI14_raj POI/2014/Round-2/raj.cpp)
+
 add_executable(POI19_klu POI/2019/Round-1/klu.cpp)
 
 # USACO
