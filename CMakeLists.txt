@@ -4,6 +4,9 @@ project(OI)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_FLAGS_DEBUG "-DLOCAL ${CMAKE_CXX_FLAGS_DEBUG} -Wshadow -Wformat=2 -Wfloat-equal -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -D_FORTIFY_SOURCE=2 -fno-sanitize-recover=all")
 
+# APIO
+add_executable(APIO16_c APIO/2016/P3-Gap/gap.cpp APIO/2016/P3-Gap/grader.cpp)
+
 # BOI
 add_executable(BOI05_e BOI/2005/bus.cpp)
 
